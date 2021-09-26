@@ -1,0 +1,88 @@
+<div class="modal fade" id="deal_modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Оформление сделки</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="clear_deal_modal()"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="deal_form" action="deal" method="POST">
+                <div class="modal-body">
+                    <select name="deal_type" style="margin-bottom: 10px" id="deal_type_select"
+                            class="browser-default custom-select">
+                        <option selected>Выберите тип сделки</option>
+                        <option value="Покупка">Покупка</option>
+                        <option value="Продажа">Продажа</option>
+                    </select>
+
+                    <select name="company_name" style="margin-bottom: 10px" id="partner_select"
+                            class="browser-default custom-select">
+                        <option selected>Выберите контрагента</option>
+                        {% for partner in params.partners %}
+                        <option value={{partner.company}}>{{partner.company }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type='hidden' id='hiddenField' name='products' value=''/>
+
+                    <div style="margin-bottom: 10px" class="row">
+                        <div class="col">
+                            <select style="width: 44%; margin-right: 2%" id="product_select"
+                                    class="browser-default custom-select">
+                                <option selected>Выберите продукт</option>
+                                {% for product in params.products %}
+                                <option value={{product.name}}>{{product.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input style="width: 44%; height: 38px; margin-right: 2%" id="product_count"
+                                   type="text"
+                                   class="border rounded"
+                                   placeholder="Введите количество"/>
+                            <button style="width: 6%; height: 38px; padding: 0;" class="btn btn-primary"
+                                    type="button"
+                                    onclick="add_product()">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Выбранные продукты</h4>
+                                    <div class="table-responsive table-bordered">
+                                        <table id="product_select_table" class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Продукт</th>
+                                                <th>Количество</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="chosen_products">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="clear_deal_modal()">
+                        Отмена
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                            onclick="submit_deal_form()">
+                        Оформить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

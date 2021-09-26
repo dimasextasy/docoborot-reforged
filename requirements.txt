@@ -1,0 +1,14 @@
+asgiref==3.4.1
+cffi==1.14.6
+Django==3.2.7
+lxml==4.6.3
+pyasn1==0.4.8
+pycparser==2.20
+pycryptodome==3.9.0
+PyNaCl==1.4.0
+python-docx==0.8.10
+pytz==2021.1
+rsa==4.7.2
+six==1.16.0
+sqlparse==0.4.2
+typing-extensions==3.10.0.2

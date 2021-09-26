@@ -1,0 +1,90 @@
+<script>
+    let product_list = [];
+    let partner;
+    let deal_type;
+    let deal_info = {};
+
+    function add_product() {
+        let products_in_table = [];
+        let product = document.getElementById("product_select");
+        product = product.options[product.selectedIndex].text;
+        let count = $(document.getElementById("product_count")).val();
+        if (product === "Выберите продукт") {
+            alert("Выберите продукт");
+            return;
+        }
+        if (count === "") {
+            alert("Введите количество");
+            return;
+        }
+        for (let i = 0; i < product_list.length; i++) {
+            products_in_table.push(product_list[i].name)
+        }
+        if (products_in_table.indexOf(product) >= 0) {
+            product_list[products_in_table.indexOf(product)].count = count
+        } else {
+            product_list.push({"name": product, "count": count});
+        }
+        $("#chosen_products").empty();
+        for (let i = 0; i < product_list.length; i++) {
+            let row = document.createElement("tr");
+            let product_cell = document.createElement("td");
+            let count_cell = document.createElement("td");
+            product_cell.innerHTML = product_list[i].name;
+            count_cell.innerHTML = product_list[i].count;
+            row.append(product_cell);
+            row.append(count_cell);
+            document.getElementById("chosen_products").appendChild(row);
+        }
+        selectElement("product_select", "Выберите продукт");
+        selectElement("product_count", "");
+    }
+
+    function selectElement(id, valueToSelect) {
+        let element = document.getElementById(id);
+        element.value = valueToSelect;
+    }
+
+    function get_deal_form_data() {
+        partner = document.getElementById("partner_select");
+        partner = partner.options[partner.selectedIndex].text;
+        deal_type = $(document.getElementById("deal_type_select")).val();
+        deal_info['company_name'] = partner;
+        deal_info['product'] = product_list;
+        deal_info['deal_type'] = deal_type;
+    }
+
+    function check_deal_form() {
+        get_deal_form_data();
+        if (deal_info['deal_type'] === "Выберите тип сделки") {
+            alert("Выберите тип сделки");
+            return false;
+        }
+        if (deal_info['company_name'] === "Выберите контрагента") {
+            alert("Выберите контрагента");
+            return false;
+        }
+        if (deal_info['product'].length === 0) {
+            alert("Добавьте продукты к сделке");
+            return false;
+        }
+        return true;
+    }
+
+    function clear_deal_modal() {
+        selectElement("product_select", "Выберите продукт");
+        selectElement("partner_select", "Выберите контрагента");
+        selectElement("deal_type_select", "Выберите тип сделки");
+        selectElement("product_count", "");
+        $("#chosen_products").empty();
+    }
+
+    function submit_deal_form() {
+        if (check_deal_form() === true) {
+            document.getElementById('hiddenField').value = JSON.stringify(product_list);
+            $("#deal_form").submit();
+            clear_deal_modal();
+            $("#deal_modal").modal('hide');
+        }
+    }
+</script>

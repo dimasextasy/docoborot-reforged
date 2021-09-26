@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <p></p>
+  <a href="{{ create_url }}" class="btn btn-dark" role="button" aria-pressed="true">Оформить сделку</a>
+  <a href="{{ generate_report_url }}" class="btn btn-dark" role="button" aria-pressed="true">Сгенерировать отчет</a>
+  <a href="verify_signature/" class="btn btn-dark" role="button" aria-pressed="true">Проверить подпись</a>
+  {% include 'objects/deal_form.html' %}
+  {% include 'objects/deal.html' %}
+  <p> </p>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Тип сделки</th>
+      <th scope="col">Контрагент</th>
+      <th scope="col">Продукты</th>
+      <th scope="col">Сумма сделки</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for deal, products_amount in deals_dictionary.items %}
+        <tr>
+      <th scope="row">{{ deal.id }}</th>
+      <td>{{ deal.date }}</td>
+      <td>{{ deal.deal_type }}</td>
+      <td>{{ deal.partner_id }}</td>
+      <td>{% for product in products_amount.0 %}
+             {{ product.product_id }}: {{ product.count }} шт.
+          {% endfor %}
+      </td>
+      <td>{{ products_amount.1 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

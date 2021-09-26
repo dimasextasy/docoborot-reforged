@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<h1>Выбрать товары</h1>
+
+<form method='POST' action='' enctype='multipart/form-data'> {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>Добавить</button>
+</form> 
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Продукт</th>
+      <th scope="col">Количество</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for deal_product in deal_products_list %}
+        <tr>
+      <td>{{ deal_product.product_id }}</td>
+      <td>{{ deal_product.count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="/stock/deal/" class="btn btn-dark" role="button" aria-pressed="true">Закончить</a>
+
+{% endblock %}

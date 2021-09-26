@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <a href="{{ create_url }}" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Добавить</a>  
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название товара</th>
+      <th scope="col">Цена покупки</th>
+      <th scope="col">Цена продажи</th>
+      <th scope="col">Склад</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+            <tr>
+      <th scope="row">{{ object.id }}</th>
+      <td>{{ object.name }}</td>
+      <td>{{ object.purchase_price }}</td>
+      <td>{{ object.selling_price }}</td>      
+      <td>{{ object.stock_id }}</td>
+      <td>
+          <a class="btn btn-dark" href="{{ object.id }}/edit" role="button">Изменить</a>
+          <a class="btn btn-dark" href="{{ object.id }}/delete" role="button">Удалить</a>
+      </td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

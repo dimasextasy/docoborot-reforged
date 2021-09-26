@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <h1>Генерация отчета</h1>
+
+<form method='POST' action='' enctype='multipart/form-data'> {% csrf_token %}
+    {{ deal_form.as_p }}
+    {{ date_form.as_p }}
+    <button type='submit'>Сгенерировать</button>
+</form> 
+
+
+{% endblock %}
